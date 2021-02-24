@@ -5,28 +5,42 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.security.MessageDigest;
-
-import org.apache.commons.text.similarity.CosineDistance;
-import org.apache.commons.text.similarity.JaccardSimilarity;
+import java.util.Timer;
+import java.util.TimerTask;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import us.codecraft.xsoup.Xsoup;
 
 public class Demo {
 
   public static void main(String[] args) throws Exception {
-    String uri1 = "https://steamcommunity.com/app/1289340/discussions/";
-    String uri2 = "https://steamcommunity.com/app/1289340/discussions/"; //"https://chess.com";
+    String uri = "https://steamcommunity.com/app/1382330/discussions/";
+    String xPath = "/html/body/div[1]/div[7]/div[6]/div[1]/div/div[2]/div[1]/div[3]/div[3]/div/div[4]/a";
 
-    String page1 = getPage(uri1);
-    String hash1 = getMd5(page1);
-    print(hash1);
+    String referenceMd5 = calculateMd5(uri, xPath);
 
-    String page2 = getPage(uri2);
-    String hash2 = getMd5(page2);
-    print(hash2);
+    Timer myTimer = new Timer();
+    TimerTask myTask = new TimerTask() {
+      @Override
+      public void run() {
+        try {
+          String currentMd5 = calculateMd5(uri, xPath);
+          print(Boolean.toString(referenceMd5.equals(currentMd5)));
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
+    };
 
-    print("Hashes are equal: " + hash1.equals(hash2));
-    print("CosineDistance: " + computeCosineSimilarity(page1, page2) * 100);
-    print("JaccardSimilarity: " + computeJaccardSimilarity(page1, page2) * 100);
+    myTimer.scheduleAtFixedRate(myTask, 0l, 1 * (60 * 1000));
 
+  }
+
+  private static String calculateMd5(String uri, String xPath)
+      throws Exception {
+    Document document = Jsoup.parse(getPage(uri));
+    String element = Xsoup.compile(xPath).evaluate(document).get();
+    return getMd5(element);
   }
 
   private static String getPage(final String uri) throws Exception {
@@ -48,14 +62,6 @@ public class Demo {
       hashtext = "0" + hashtext;
     }
     return hashtext;
-  }
-
-  private static double computeCosineSimilarity(String stringA, String stringB) {
-    return 1 - new CosineDistance().apply(stringA, stringB);
-  }
-
-  private static double computeJaccardSimilarity(String stringA, String stringB) {
-    return new JaccardSimilarity().apply(stringA, stringB);
   }
 
   private static void print(String message) {
