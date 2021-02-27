@@ -23,7 +23,7 @@
       <td colspan="4"> No Web pages Available</td>
     </tr>
     <tr th:each="webPage : ${webPages}">
-      <td><span th:text="${webPage.url}">Url</span></td>
+      <td><a th:text="${webPage.url}" th:href="${webPage.url}">Url</a></td>
       <td><span th:text="${webPage.md5}">MD5</span></td>
       <td><span th:text="${webPage.changed}">Changed</span></td>
       <td><a th:href="@{delete/{md5}(md5=${webPage.md5})}">Delete</a></td>
