@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="https://www.thymeleaf.org"
+      layout:decorate="~{template.html}">
+</head>
+<body>
+<section layout:fragment="custom-content">
+
+  <h1 align="center">Enter a web page:</h1>
+  <form action="#" th:action="@{/home}" th:object="${page}" method="post">
+    <table align="center">
+      <tr>
+        <td>URI:</td>
+        <td><input type="text" size="75" th:field="*{url}"/></td>
+      </tr>
+      <tr>
+        <td>XPath query:</td>
+        <td><input type="text" size="75" th:field="*{xpath}"/></td>
+      </tr>
+      <tr>
+        <td>Email address:</td>
+        <td><input type="text" size="75" th:field="*{email}"/></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td align="right"><input type="submit" value="Submit"/></td>
+      </tr>
+    </table>
+  </form>
+  <div align="center" th:text="${feedback}"><div>
+
+</section>
+</body>
+</html>

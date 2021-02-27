@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title>Watchdog</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" type="text/css" href="main.css"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+  </style>
+</head>
+<body style="background-color:black;">
+<div id="page-container">
+  <div id="content-wrap">
+    <!-- all other page content -->
+    <table style="width:100%">
+      <tr>
+        <th style="width:20%"></th>
+        <th style="width:60%">
+          <div style="height: 100px;"></div>
+          <img th:src="@{/bulldog.png}" width="150"/>
+          <div style="height: 50px;"></div>
+        </th>
+        <th style="width:20%"></th>
+      </tr>
+      <tr>
+        <td>
+          <div id="menu">
+            <p align="right"><a th:href="@{home}"> Home </a></p>
+            <p align="right"><a th:href="@{monitor}"> Monitor </a></p>
+            <p align="right"> About </a></p>
+          </div>
+        </td>
+        <td>
+          <section layout:fragment="custom-content">
+            <p>Your page content goes here</p>
+          </section>
+        </td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+  <footer id="footer"><p>Watchdog, version 0.1</p></footer>
+</div>
+</body>
+</html>

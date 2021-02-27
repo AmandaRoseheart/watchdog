@@ -1,0 +1,50 @@
+/* define font */
+html *
+{
+   font-size: 24px !important; /* was: 1em */
+   color:#85C1E9 !important;
+   font-family: 'Architects Daughter', cursive; !important;
+}
+
+/* styles for making footer always stay at bottom of the page */
+#page-container {
+  position: relative;
+  min-height: 97.5vh;
+}
+
+#content-wrap {
+  padding-bottom: 4rem; /* Footer height */
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 4rem; /* Footer height */
+  text-align: center;
+}
+
+/* give menu a fixed position */
+#menu {
+  position: fixed;
+  left: 100px;
+  top: 100px;
+}
+
+/* rest of styling */
+h1 {
+  color:white !important;
+}
+
+input {
+  background-color : #1D1D1D;
+}
+
+td, th {
+    padding: .5em;
+    align: left;
+}
+
+.monitor td {
+  border: 1px solid #85C1E9;
+}
