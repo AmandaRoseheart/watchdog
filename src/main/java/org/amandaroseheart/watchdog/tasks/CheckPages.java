@@ -16,7 +16,7 @@ public class CheckPages {
   @Autowired
   WatchdogService service;
 
-  @Scheduled(fixedDelay = 24 * 60 * 1000)
+  @Scheduled(cron = "0 0 3 * * ?")
   public void execute() {
     System.out.println("Task started");
     for (WebPage webPage : repo.getAll()) {
