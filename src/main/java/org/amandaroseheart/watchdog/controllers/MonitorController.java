@@ -33,7 +33,8 @@ public class MonitorController {
       } catch (Exception e) {
         e.printStackTrace();
       }
-      webPages.add(new WebPageView(page.getUrl(), md5then, !md5now.equals(md5then)));
+      webPages.add(
+          new WebPageView(page.getUrl(), md5then, !md5now.equals(md5then)));
     }
     model.addAttribute("webPages", webPages);
     return "monitor";
