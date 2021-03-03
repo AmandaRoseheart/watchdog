@@ -3,6 +3,7 @@ package org.amandaroseheart.watchdog.controllers;
 import org.amandaroseheart.watchdog.models.WebPageForm;
 import org.amandaroseheart.watchdog.domain.WebPage;
 import org.amandaroseheart.watchdog.repositories.WebPageRepo;
+import org.amandaroseheart.watchdog.services.MailService;
 import org.amandaroseheart.watchdog.services.WatchdogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,9 @@ public class HomeController {
 
   @Autowired
   private WatchdogService watchdogService;
+
+  @Autowired
+  private MailService mailService;
 
   @GetMapping("/home")
   public String home(Model model) {
@@ -45,6 +49,18 @@ public class HomeController {
     webPageRepo.save(webPage);
     model.addAttribute("page", new WebPageForm());
     model.addAttribute("feedback", feedback);
+    return "home";
+  }
+
+  @GetMapping("/testmail")
+  public String testMail(Model model) {
+    try {
+      mailService.sendMail("Test message");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    model.addAttribute("page", new WebPageForm());
+    model.addAttribute("feedback", "");
     return "home";
   }
 
